@@ -31,9 +31,11 @@ alpha    = 0.02;
 
 
 global f ...
-    B_DL ...
-    B_OF ;
+    B_Oe ...
+    B_FL ...
+    B_DL ;
 
 f     = 9e+9;
+B_Oe  = 4 * 1e-4;
+B_FL  = 1 * 1e-4;
 B_DL  = 10 * 1e-4;
-B_OF  = [0 ; 5 * 1e-4 ; 0];
