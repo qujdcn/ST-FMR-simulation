@@ -7,8 +7,10 @@ global B_x...
     mu_0  ...
     M_s   ;
 
+% 设置磁场强度和方向
 B_ext   = 0.09;
 theta_B = pi / 4;
+
 B_x     = B_ext * cos(theta_B);
 B_y     = B_ext * sin(theta_B);
 B_z     = 0;
@@ -21,12 +23,14 @@ M_s     = 6.4e+5;
 
 global gamma...
     sigma   ...
+    y       ...
     alpha   ;
 
 u_B      = 9.274e-24;
 hbar     = 6.62607015e-34 / (2 * pi);
 gamma    = 2 * u_B / hbar;
 sigma    = [0 ; 1 ; 0];
+y        = [0 ; 1 ; 0];
 alpha    = 0.02;
 
 

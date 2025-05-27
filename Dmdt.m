@@ -1,4 +1,4 @@
-function [m_prime] = m_prime(m , time)
+function [dmdt] = Dmdt(m , time)
 
 m_x = m(1);
 m_y = m(2);
@@ -29,7 +29,7 @@ B_eff = B_ext + B_demag + B_OF * cos(2 * pi * f * time);
 % 
 % m_prime = A^-1 * b;
 
-m_prime = gamma / (1 + alpha^2) * (alpha * B_eff...
+dmdt = gamma / (1 + alpha^2) * (alpha * B_eff...
     -cross(m , B_eff)...
     -alpha * dot(m , B_eff) * m...
     +B_DL * cos(2 * pi * f * time) *(sigma - dot(m , sigma) * m + alpha * cross(m , sigma)));
