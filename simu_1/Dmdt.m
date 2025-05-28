@@ -29,7 +29,7 @@ B_eff = B_ext + B_demag + B_Oe * cos(2 * pi * f * time) * y + B_FL * cos(2 * pi 
 % 
 % b = -gamma * cross(m , B_eff) + gamma * B_DL * cross(m , cross(sigma , m)) * cos(2 * pi * f * time);
 % 
-% m_prime = A^-1 * b;
+% dmdt = A^-1 * b;
 
 dmdt = gamma / (1 + alpha^2) * (-cross(m , B_eff)...
     -alpha * dot(m , B_eff) * m...
