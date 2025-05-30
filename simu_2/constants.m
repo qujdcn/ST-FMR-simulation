@@ -9,10 +9,10 @@ global B_x...
 
 % 设置磁场强度和方向
 B_ext   = 0.09;
-theta_B = pi / 4;
+phi_B = pi / 4;
 
-B_x     = B_ext * cos(theta_B);
-B_y     = B_ext * sin(theta_B);
+B_x     = B_ext * cos(phi_B);
+B_y     = B_ext * sin(phi_B);
 B_z     = 0;
 N_x     = 0;
 N_y     = 0;
