@@ -4,7 +4,7 @@ constants;
 
 % 仿真时间设置
 delta_t = 5e-12;
-n_t     = 2000;
+n_t     = 600;
 t_start = 0;
 t_end   = t_start + n_t * delta_t;
 t       = t_start : delta_t : t_end;
