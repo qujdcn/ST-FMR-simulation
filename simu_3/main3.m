@@ -2,19 +2,19 @@ clear;
 close all;
 constants;
 
-% ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+% ·ÂÕæÊ±¼äÉèÖÃ
 delta_t = 5e-12;
 n_t     = 600;
 t_start = 0;
 t_end   = t_start + n_t * delta_t;
 t       = t_start : delta_t : t_end;
 
-% ï¿½ï¿½Ê¼ï¿½Å¾ï¿½ï¿½ï¿½ï¿½ï¿½
+% ³õÊ¼´Å¾ØÉèÖÃ
 m_total = zeros(3 , length(t));
 m_init  = [cos(phi_B) ; sin(phi_B) ; 0];
 m_total(1:3 , 1) = m_init;
 
-% ï¿½Ä½ï¿½Runge-Kuttaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+% ËÄ½×Runge-Kutta·½·¨Çó½â
 for i = 1:n_t
     
     t_curr = t(i);
@@ -28,38 +28,31 @@ for i = 1:n_t
     
     m_total(: , i+1) = m_total(:,i) + delta_m_total;
     
-    % Ã¿ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½Ô´Å¾Ø·ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½Öµï¿½ï¿½É¢
+    % Ã¿´ÎÑ­»·¶Ô´Å¾Ø·½Ïò¹éÒ»»¯£¬·ÀÖ¹ÊýÖµºÄÉ¢
     m_total(: , i+1) = m_total(: , i+1) / norm(m_total(: , i+1));
     
 end
 
-% ï¿½Å¾Ø½ï¿½ï¿½ï¿½ï¿½ï¿½
-mx0 = cos(phi_B);
-my0 = sin(phi_B);
-mz0 = 0;
-
-% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Å¾ØµÄ½ï¿½ï¿½ï¿½×´Ì¬
-omega = 2 * pi * f;
-B_OF = B_Oe + B_FL;
-
-A = [1i * omega , 0 , -gamma * B_y - mu_0 * M_s * gamma * sin(phi_B) - 1i * omega * alpha * sin(phi_B);
-    0 , 1i * omega , gamma * B_x + mu_0 * M_s * gamma * cos(phi_B) + 1i * omega * alpha * cos(phi_B);
-    gamma * B_y + 1i * omega * alpha * cos(phi_B) , -gamma * B_x - 1i * omega * alpha * sin(phi_B) , 1i * omega];
-b = [gamma * B_DL * cos(phi_B) * sin(phi_B) ; -gamma * B_DL * cos(phi_B)^2 ; gamma * B_OF * cos(phi_B)];
-
-m = A^-1 * b;
-mx1 = m(1);
-my1 = m(2);
-mz1 = -(gamma*cos(phi_B)*(B_DL*B_ext*gamma - B_OF*omega*1i + B_DL*alpha*omega*1i))/...
-    (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
-
-% ï¿½ï¿½ï¿½ï¿½mxï¿½ï¿½myï¿½ï¿½mzï¿½ï¿½Ê±ï¿½ï¿½Ä±ä»¯Í¼ï¿½ñ£¬¶Ô±ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ã·½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+% »­³ömx¡¢my¡¢mzËæÊ±¼äµÄ±ä»¯Í¼Ïñ
 figure;
 subplot(311)
-plot(t,m_total(1,:) , t,real(mx0 + mx1 * exp(1i * omega * t)))
+plot(t,m_total(1,:))
 
 subplot(312)
-plot(t,m_total(2,:) , t,real(my0 + my1 * exp(1i * omega * t)))
+plot(t,m_total(2,:))
 
 subplot(313)
-plot(t,m_total(3,:) , t,real(mz0 + mz1 * exp(1i * omega * t)))
+plot(t,m_total(3,:))
+
+% ×ø±ê±ä»»
+m_total_trans = [cos(phi_B) sin(phi_B) 0 ; -sin(phi_B) cos(phi_B) 0 ; 0 0 1] * m_total;
+
+figure;
+subplot(311)
+plot(t,m_total_trans(1,:))
+
+subplot(312)
+plot(t,m_total_trans(2,:))
+
+subplot(313)
+plot(t,m_total_trans(3,:))
