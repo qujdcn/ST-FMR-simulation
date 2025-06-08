@@ -36,14 +36,20 @@ end
 % 坐标变换
 m_total_trans = [cos(phi_B) sin(phi_B) 0 ; -sin(phi_B) cos(phi_B) 0 ; 0 0 1] * m_total;
 
-
 omega = 2 * pi * f;
 B_OF  = B_Oe + B_FL;
 
-my = -(gamma*cos(phi_B)*(B_DL*omega*1i + B_OF*B_ext*gamma + B_OF*alpha*omega*1i + B_OF*M_s*gamma*mu_0))/...
-    (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
-mz = -(gamma*cos(phi_B)*(B_DL*B_ext*gamma - B_OF*omega*1i + B_DL*alpha*omega*1i))/...
-    (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
+% 求解线性方程组
+A = [ omega*1i , B_ext*gamma + alpha*omega*1i + M_s*gamma*mu_0; -B_ext*gamma - alpha*omega*1i , omega*1i];
+b = [-B_DL*gamma*cos(phi_B) ; B_OF*gamma*cos(phi_B)];
+m = A^-1 * b;
+my = m(1);
+mz = m(2);
+
+% my = -(gamma*cos(phi_B)*(B_DL*omega*1i + B_OF*B_ext*gamma + B_OF*alpha*omega*1i + B_OF*M_s*gamma*mu_0))/...
+%     (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
+% mz = -(gamma*cos(phi_B)*(B_DL*B_ext*gamma - B_OF*omega*1i + B_DL*alpha*omega*1i))/...
+%     (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
 
 figure;
 subplot(311)

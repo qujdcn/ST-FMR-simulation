@@ -19,10 +19,9 @@ right34 = gamma * B_OF * [0 ; 0 ; cos(phi_B)];
 % cross(m , cross(sigma , m))
 right5 = gamma * B_DL * [0 ; -cos(phi_B) ; 0];
 
-ALL = right1 + right2 + right34 + right5 - dmdt;
+ALL = dmdt - (right1 + right2 + right34 + right5);
 
-
-A = [ -omega*1i , -B_ext*gamma - alpha*omega*1i - M_s*gamma*mu_0; B_ext*gamma + alpha*omega*1i , -omega*1i];
-b = [B_DL*gamma*cos(phi_B) ; -B_OF*gamma*cos(phi_B)];
+A = [ omega*1i , B_ext*gamma + alpha*omega*1i + M_s*gamma*mu_0; -B_ext*gamma - alpha*omega*1i , omega*1i];
+b = [-B_DL*gamma*cos(phi_B) ; B_OF*gamma*cos(phi_B)];
 
 simplify(A ^ -1 * b)
