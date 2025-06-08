@@ -7,7 +7,7 @@ global B_x...
     mu_0  ...
     M_s   ;
 
-% 设置磁场强度和方向
+% 锟斤拷锟矫磁筹拷强锟饺和凤拷锟斤拷
 B_ext   = 0.09;
 phi_B = pi / 4;
 
@@ -29,7 +29,7 @@ global gamma...
 u_B      = 9.274e-24;
 hbar     = 6.62607015e-34 / (2 * pi);
 gamma    = 2 * u_B / hbar;
-sigma    = [0 ; 1 ; 0];
+sigma    = [0 ; -1 ; 0];
 y        = [0 ; 1 ; 0];
 alpha    = 0.02;
 

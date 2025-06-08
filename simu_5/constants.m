@@ -8,8 +8,8 @@ global B_x...
     M_s   ;
 
 % 设置磁场强度和方向
-B_ext   = 0.09;
-phi_B = pi / 4;
+B_ext   = 0.137;
+phi_B = 0.2;
 
 B_x     = B_ext * cos(phi_B);
 B_y     = B_ext * sin(phi_B);
@@ -39,7 +39,7 @@ global f ...
     B_FL ...
     B_DL ;
 
-f     = 9e+9;
+f     = 5e+9;
 B_Oe  = 4 * 1e-4;
 B_FL  = 1 * 1e-4;
 B_DL  = 10 * 1e-4;

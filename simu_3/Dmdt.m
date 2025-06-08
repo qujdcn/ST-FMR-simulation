@@ -23,7 +23,7 @@ global f ...
 
 B_ext = [B_x ; B_y ; B_z];
 B_demag = -mu_0 * M_s * [N_x * m_x ; N_y * m_y ; N_z * m_z];
-B_eff = B_ext + B_demag + B_Oe * cos(2 * pi * f * time) * y + B_FL * cos(2 * pi * f * time) * sigma;
+B_eff = B_ext + B_demag - B_Oe * cos(2 * pi * f * time) * y + B_FL * cos(2 * pi * f * time) * sigma;
 
 % A = eye(3) - alpha * cross2mat(m);
 % 

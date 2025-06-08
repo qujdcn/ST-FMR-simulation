@@ -29,7 +29,7 @@ global gamma...
 u_B      = 9.274e-24;
 hbar     = 6.62607015e-34 / (2 * pi);
 gamma    = 2 * u_B / hbar;
-sigma    = [0 ; 1 ; 0];
+sigma    = [0 ; -1 ; 0];
 y        = [0 ; 1 ; 0];
 alpha    = 0.02;
 
