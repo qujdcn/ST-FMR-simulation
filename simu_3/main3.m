@@ -33,26 +33,31 @@ for i = 1:n_t
     
 end
 
-% 画出mx、my、mz随时间的变化图像
-figure;
-subplot(311)
-plot(t,m_total(1,:))
-
-subplot(312)
-plot(t,m_total(2,:))
-
-subplot(313)
-plot(t,m_total(3,:))
-
 % 坐标变换
 m_total_trans = [cos(phi_B) sin(phi_B) 0 ; -sin(phi_B) cos(phi_B) 0 ; 0 0 1] * m_total;
 
+omega = 2 * pi * f;
+B_OF  = B_Oe + B_FL;
+
+% 求解线性方程组
+% A = [ omega*1i , B_ext*gamma + alpha*omega*1i + M_s*gamma*mu_0; -B_ext*gamma - alpha*omega*1i , omega*1i];
+% b = [-B_DL*gamma*cos(phi_B) ; B_OF*gamma*cos(phi_B)];
+% m = A^-1 * b;
+% my = m(1);
+% mz = m(2);
+
+my = -(gamma*cos(phi_B)*(B_DL*omega*1i + B_OF*B_ext*gamma + B_OF*alpha*omega*1i + B_OF*M_s*gamma*mu_0))/...
+    (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
+mz = -(gamma*cos(phi_B)*(B_DL*B_ext*gamma - B_OF*omega*1i + B_DL*alpha*omega*1i))/...
+    (B_ext^2*gamma^2 + B_ext*alpha*gamma*omega*2i + M_s*mu_0*B_ext*gamma^2 - alpha^2*omega^2 + M_s*mu_0*alpha*gamma*omega*1i - omega^2);
+
 figure;
 subplot(311)
-plot(t,m_total_trans(1,:))
+plot(t,m_total_trans(1,:),t,real((1 - 1/4 * (my*my' + mz*mz')) - 1/4 * (my^2 + mz^2) * exp(2i * omega * t)))
+% plot(t,m_total_trans(1,:),t,sqrt(1 - real(my * exp(1i * omega * t)).^2 - real(mz * exp(1i * omega * t)).^2))
 
 subplot(312)
-plot(t,m_total_trans(2,:))
+plot(t,m_total_trans(2,:),t,real(my * exp(1i * omega * t)))
 
 subplot(313)
-plot(t,m_total_trans(3,:))
+plot(t,m_total_trans(3,:),t,real(mz * exp(1i * omega * t)))

@@ -36,10 +36,16 @@ end
 % 画出mx、my、mz随时间的变化图像
 figure;
 subplot(311)
+hold on
 plot(t,m_total(1,:))
+plot(t,cos(phi_B)*ones(size(t)),'--')
 
 subplot(312)
+hold on
 plot(t,m_total(2,:))
+plot(t,sin(phi_B)*ones(size(t)),'--')
 
 subplot(313)
+hold on
 plot(t,m_total(3,:))
+plot(t,0 * (phi_B)*ones(size(t)),'--')
